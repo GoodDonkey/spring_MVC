@@ -1,8 +1,10 @@
 package hi.springmvc.basic.request;
 
+import hi.springmvc.basic.HelloData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -81,5 +83,32 @@ public class RequestParamController {
         // MultiValueMap 은 값을 List에 저장한다.
         log.info("username={}, age={}", paramMultiMap.get("username"), paramMultiMap.get("age"));
         return "request-param-map: OK";
+    }
+
+//    @ResponseBody
+//    @RequestMapping("/model-attribute-v0")
+//    public String modelAttributeV0(@RequestParam String username, @RequestParam int age) {
+//        HelloData helloData = new HelloData();
+//        helloData.setUsername(username);
+//        helloData.setAge(age);
+//
+//        log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
+//        log.info("helloData={}", helloData);
+//
+//        return "OK";
+//    }
+
+    @ResponseBody
+    @RequestMapping("/model-attribute-v1")
+    public String modelAttributeV1(@ModelAttribute HelloData helloData) {
+        log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
+        return "model-attribute-v1: OK";
+    }
+
+    @ResponseBody
+    @RequestMapping("/model-attribute-v2")
+    public String modelAttributeV2(HelloData helloData) {
+        log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
+        return "model-attribute-v2: OK";
     }
 }
